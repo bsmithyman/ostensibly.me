@@ -1,7 +1,7 @@
 ---
 contentdir: "content"
 layoutdir: "layouts"
-publishdir: "public"
+publishdir: "www"
 indexes:
 category: "categories"
 baseurl: "http://ostensibly.me"
