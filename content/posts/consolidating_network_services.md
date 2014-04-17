@@ -64,23 +64,24 @@ So, you can run your entire workflow using Git, a couple of command-line scripts
 
 Hit me back if this is useful to you!
 
-[OpenVPN]: http://openvpn.net/
-[Twilio]: https://www.twilio.com/
 [Amazon EC2]: http://aws.amazon.com/ec2/
-[Heroku]: https://www.heroku.com/
-[Git]: http://git-scm.com/
-[latte threshold]: /info/glossary/
-[Dokku]: https://github.com/progrium/dokku
+[Amazon Web Services]: http://aws.amazon.com/
 [Buildpack]: https://devcenter.heroku.com/articles/buildpacks
+[DeployingDokkuDO]: https://www.andrewmunsell.com/blog/dokku-tutorial-digital-ocean
+[Digital Ocean]: https://www.digitalocean.com/
 [Docker]: https://www.docker.io/
-[LXC Containers]: https://linuxcontainers.org/
-[Jeff Lindsay]: https://twitter.com/progrium
+[Dokku]: https://github.com/progrium/dokku
 [DokkuBlog]: http://progrium.com/blog/2013/06/19/dokku-the-smallest-paas-implementation-youve-ever-seen/
 [Flynn]: https://flynn.io/
-[Digital Ocean]: https://www.digitalocean.com/
-[Amazon Web Services]: http://aws.amazon.com/
-[HowToDokkuDO]: https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application
-[DeployingDokkuDO]: https://www.andrewmunsell.com/blog/dokku-tutorial-digital-ocean
+[Git]: http://git-scm.com/
 [gitreceive]: https://github.com/progrium/gitreceive
+[Heroku]: https://www.heroku.com/
+[HowToDokkuDO]: https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application
+[Jeff Lindsay]: https://twitter.com/progrium
+[LXC Containers]: https://linuxcontainers.org/
 [Nginx]: http://wiki.nginx.org/
+[OpenVPN]: http://openvpn.net/
+[Twilio]: https://www.twilio.com/
 [Ubuntu]: http://www.ubuntu.com/
+
+[latte threshold]: /info/glossary/
