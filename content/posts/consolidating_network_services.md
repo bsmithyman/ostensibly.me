@@ -69,7 +69,7 @@ Hit me back if this is useful to you!
 [Amazon EC2]: http://aws.amazon.com/ec2/
 [Heroku]: https://www.heroku.com/
 [Git]: http://git-scm.com/
-[latte threshold]: /glossary
+[latte threshold]: /info/glossary/
 [Dokku]: https://github.com/progrium/dokku
 [Buildpack]: https://devcenter.heroku.com/articles/buildpacks
 [Docker]: https://www.docker.io/
