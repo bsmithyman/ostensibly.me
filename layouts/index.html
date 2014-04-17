@@ -1,0 +1,43 @@
+<!-- This file is the homepage of the website. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <base href="{{ .Site.BaseUrl }}">
+    <title>{{ .Site.Title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}">
+    <link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+
+    {{ template "chrome/head_includes.html" . }}
+</head>
+  <body class="theme-base-0f" lang="en">
+
+  {{ template "chrome/sidebar.html" . }}
+
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Home</a>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+        <!-- Recent Posts section -->
+        <h1 class="post-title">Recent Posts</h1>
+          <section id="main">
+            <ul id="list">
+              {{ range first 10 .Data.Pages }}
+              {{ .Render "summary"}}
+              {{ end }}
+            </ul>
+          </section>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+{{ template "chrome/footer.html" }}
