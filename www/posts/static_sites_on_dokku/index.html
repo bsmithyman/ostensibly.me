@@ -1,0 +1,167 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <base href="http://ostensibly.me/">
+    <title> Static sites on Dokku </title>
+    <link rel="canonical" href="http://ostensibly.me/posts/static_sites_on_dokku">
+    
+
+<link rel="stylesheet" href="http://ostensibly.me/css/poole.css">
+<link rel="stylesheet" href="http://ostensibly.me/css/lanyon.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+</head>
+
+
+<body class="theme-base-0f">
+  
+
+
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://ostensibly.me/">Home</a>
+    <a class="sidebar-nav-item" href="http://ostensibly.me/posts">Blog</a>
+    <a class="sidebar-nav-item" href="http://ostensibly.me/info">Info</a>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014 Brendan Smithyman. Powered by <a href="http://hugo.spf13.com">Hugo</a>. Design adapted from <a href="http://lanyon.getpoole.com">Lanyon</a> by Spencer Lyon.
+    </p>
+  </div>
+</div>
+
+
+  
+  <div class="wrap">
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+          <a href="http://ostensibly.me/posts" title="Blog">Blog Posts</a>
+        </h3>
+      </div>
+    </div>
+
+    
+    <div class="container content">
+      <h1 class="post-title">Static sites on Dokku</h1>
+        <section id="main">
+          <h5 id="date"> Thu Apr 17, 2014 </h5>
+          
+
+<p>I wrote about <a href="https://github.com/progrium/dokku">Dokku</a> in <a href="http://ostensibly.me/posts/consolidating_network_services/">a previous post</a>; I spent a bit of time explaining why I think it&rsquo;s pretty much the greatest thing since sliced pizza. However, I ran into a minor issue recently when trying to set up a static site for this blog using <a href="http://hugo.spf13.com/">Hugo</a>. Dokku doesn&rsquo;t always play nicely with static sites. I think this is improving (and it looks like <a href="https://flynn.io/">Flynn</a> is much fancier); my issues occurred with Dokku <em>v0.2.1</em>.</p>
+
+<p>In a world full of static site designers (e.g., <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://ringce.com/hyde">Hyde</a>), the need for a PaaS (Platform as a Service) to run my blog is arguable. However, since I&rsquo;ve been using <a href="https://www.docker.io/">Docker</a> and <a href="https://github.com/progrium/dokku">Dokku</a> wherever possible because of the simple deployment and update options, I wanted to keep everything within that ecosystem. Since <a href="http://hugo.spf13.com/">Hugo</a> basically just spits out a directory full of HTML and static files, it&rsquo;s pretty straightforward to serve. There are some built-in options that use <a href="https://devcenter.heroku.com/articles/buildpacks">buildpacks</a> to deploy <a href="http://wiki.nginx.org/">Nginx</a> or <a href="http://projects.apache.org/projects/http_server.html">Apache</a>. I tried both, and ran into the same issue with both; for now I&rsquo;ll focus on the default Nginx buildpack.</p>
+
+<h2 id="toc_0">Setup</h2>
+
+<p>If you put a file in your git repository&rsquo;s root directory named <code>.nginx</code>, the default <a href="https://github.com/rhy-jot/buildpack-nginx">Nginx buildpack</a> fires up and handles serving a site from <code>/app/www</code>. This means that the document root is the <code>www</code> directory of your git repository. Cool. I set up <a href="http://hugo.spf13.com/">Hugo</a>&rsquo;s <code>config.yaml</code> file as follows:</p>
+
+<pre><code class="yaml">---
+contentdir: &quot;content&quot;
+layoutdir: &quot;layouts&quot;
+publishdir: &quot;www&quot;
+indexes:
+category: &quot;categories&quot;
+baseurl: &quot;http://ostensibly.me&quot;
+title: &quot;ostensibly.me&quot;
+---
+</code></pre>
+
+<p><strong>NB:</strong> The whole site is stored in a <a href="https://github.com/bsmithyman/ostensibly.me">public repository on GitHub</a> for your reading pleasure.</p>
+
+<p>This worked great. I loaded up <a href="http://ostensibly.me/">ostensibly.me</a> and was pleased to find that everything was <em>awesome</em>. Until I clicked a link.</p>
+
+<p>It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of <code>http://ostensibly.me/info/about/</code>, I ended up at <code>http://ostensibly.me:5000/info/about/</code>. There&rsquo;s no server running on port 5000; however, the Nginx server does use port <code>5000</code> at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the <code>:5000</code> bit from the link in my address bar, hit <code>Enter</code>, and the next page loaded. Clicked a link. Port <code>5000</code>, <strong>404</strong>&rsquo;d!</p>
+
+<h2 id="toc_1">What happened?</h2>
+
+<p>The links on <a href="http://ostensibly.me/">ostensibly.me</a> point to things like <code>http://ostensibly.me/info/about</code>, and when the pages load up the <code>/</code> gets tacked on the end by Nginx. But, Nginx was rewriting the URLs to include port <code>5000</code> when it did the rewrite. Since the requests were being rewritten, all the links were affected. However, going directly to <code>http://ostensibly.me/info/about/</code> was fine, since no rewrite happened.</p>
+
+<p><a href="http://serverfault.com/a/408024">The Solution</a> came from <em>Hariadi</em> on <a href="http://stackexchange.com/">StackExchange</a>, who suggested modifying the Nginx config to add a <code>proxy_redirect</code> entry.</p>
+
+<pre><code>proxy_redirect http://ostensibly.me:5000/ http://ostensibly.me/;
+</code></pre>
+
+<p>This change works fine, and solves an annoying problem. My impression from reading pull requests on GitHub is that <a href="https://flynn.io/">Flynn</a> is going to solve all of the world&rsquo;s problems, this among them. Until then, my site works.</p>
+
+        </section>
+    </div>
+  </div>
+
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  
+
+<div class="container">
+  <hr />
+  <hr />
+  
+
+  
+    <span class="right">
+    <em>Next: </em><a class="next" href="http://ostensibly.me/info/about"> &nbsp; About Me</a> &raquo;
+    </span>
+  
+</div>
+
+  <br />
+  
+<div class="container">
+  <ul class="catlist">
+    <li><em>Categories: </em></li>
+    
+      <li><a href="http://ostensibly.me/categories/blog">blog</a> </li>
+    
+      <li><a href="http://ostensibly.me/categories/dokku">Dokku</a> </li>
+    
+      <li><a href="http://ostensibly.me/categories/infrastructure">infrastructure</a> </li>
+    
+      <li><a href="http://ostensibly.me/categories/paas">PaaS</a> </li>
+    
+  </ul>
+</div>
+
+
+
+  
+  
+
+<div class="container content">
+<footer>
+  <div>
+    <p class="right credit">
+      <a href="http://ostensibly.me/">Home Page</a>
+    </p>
+  </div>
+</footer>
+</div>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50130650-1', 'ostensibly.me');
+  ga('send', 'pageview');
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
