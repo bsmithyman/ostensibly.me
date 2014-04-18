@@ -1,6 +1,7 @@
 ---
 title: Glossary
 description: A glossary of terms, both technical and whimsical
+date: "2014-03-30"
 ---
 
 <dl>
