@@ -33,7 +33,7 @@ title: "ostensibly.me"
 
 This worked great. I loaded up [ostensibly.me][] and was pleased to find that everything was *awesome*. Until I clicked a link.
 
-It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of `http://ostensibly.me/info/about/`, I ended up at `http://ostensibly.me:5000/info/about/`. There's no server running on port 5000; however, the Nginx server does use port 5000 at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the `:5000` bit from the link in my address bar, hit `Enter`, and the next page loaded. Clicked a link. Port `5000`, **404**'d! [It bears pointing out that it wasn't actually a `404` error, since the site just didn't respond at all. But it's still a good idiom.]
+It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of `http://ostensibly.me/info/about/`, I ended up at `http://ostensibly.me:5000/info/about/`. There's no server running on port 5000; however, the Nginx server does use port 5000 at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the `:5000` bit from the link in my address bar, hit `Enter`, and the next page loaded. Clicked a link. Port 5000, **404**'d! [It bears pointing out that it wasn't actually a `404` error, since the site just didn't respond at all. But it's still a good idiom.]
 
 ## What happened?
 

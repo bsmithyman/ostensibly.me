@@ -81,7 +81,7 @@ title: &quot;ostensibly.me&quot;
 
 <p>This worked great. I loaded up <a href="http://ostensibly.me/">ostensibly.me</a> and was pleased to find that everything was <em>awesome</em>. Until I clicked a link.</p>
 
-<p>It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of <code>http://ostensibly.me/info/about/</code>, I ended up at <code>http://ostensibly.me:5000/info/about/</code>. There&rsquo;s no server running on port 5000; however, the Nginx server does use port 5000 at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the <code>:5000</code> bit from the link in my address bar, hit <code>Enter</code>, and the next page loaded. Clicked a link. Port <code>5000</code>, <strong>404</strong>&rsquo;d! [It bears pointing out that it wasn&rsquo;t actually a <code>404</code> error, since the site just didn&rsquo;t respond at all. But it&rsquo;s still a good idiom.]</p>
+<p>It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of <code>http://ostensibly.me/info/about/</code>, I ended up at <code>http://ostensibly.me:5000/info/about/</code>. There&rsquo;s no server running on port 5000; however, the Nginx server does use port 5000 at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the <code>:5000</code> bit from the link in my address bar, hit <code>Enter</code>, and the next page loaded. Clicked a link. Port 5000, <strong>404</strong>&rsquo;d! [It bears pointing out that it wasn&rsquo;t actually a <code>404</code> error, since the site just didn&rsquo;t respond at all. But it&rsquo;s still a good idiom.]</p>
 
 <h2 id="toc_1">What happened?</h2>
 
