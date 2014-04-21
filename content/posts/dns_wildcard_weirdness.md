@@ -8,7 +8,7 @@ categories:
     - "Dokku"
 ---
 
-It happenes that I have a subdomain of one of my web domains bound to our home IP address, so that I can VPN into our home network, etc.
+It happens that I have a subdomain of one of my web domains bound to our home IP address, so that I can VPN into our home network, etc.
 
 Our wifi router (an Asus model) had its domain name set to the same (i.e., `subdomain.thedomain.com`). So, the home router (which also handles DNS caching) was spitting out DNS configurations that looked like this:
 
