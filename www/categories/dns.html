@@ -2,12 +2,13 @@
 
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title> Infos </title>
-    <link rel="canonical" href="http://ostensibly.me/info">
+    <title> Dns </title>
+    <link rel="canonical" href="http://localhost:1313/categories/dns.html">
     
 
 <link rel="stylesheet" href="/css/poole.css">
@@ -45,50 +46,39 @@
     <div class="masthead">
       <div class="container">
         <h3 class="masthead-title">
-          <a href="/info" title="Info">Information</a>
+          <a href="/posts" title="Blog">Blog Posts</a>
         </h3>
       </div>
     </div>
 
-    
+  
     <div class="container content">
-      <h1 class="post-title">Information Pages</h1>
+      <h1 class="post-title">Recent Posts</h1>
         <section id="main">
-          <ul id="list">
+          <div>
+            <h5><a href="/categories">Full Category Index</a></h5>
+            <h2>Posts in &ldquo;Dns&rdquo;</h2>
             
             
-<li>
-  <span><h2><a href='http://ostensibly.me/info/about'> About Me</a> </h2></span>
-  <span class="left">Wed, Apr 16, 2014</span>
-  <span class="right">
-    <ul class="catlist">
-      
-    </ul>
-  </span>
 
-  <br />
-  Basic information and research profile
-</li>
+<article class="post">
+    <header>
+      <h2><a href='http://localhost:1313/posts/dns_wildcard_weirdness.html'> DNS wildcard weirdness</a> </h2>
+      <div class="meta">Mon, Mar 31, 2014</div>
+    </header>
 
-            
-            
-<li>
-  <span><h2><a href='http://ostensibly.me/info/glossary'> Glossary</a> </h2></span>
-  <span class="left">Sun, Mar 30, 2014</span>
-  <span class="right">
-    <ul class="catlist">
-      
-    </ul>
-  </span>
-
-  <br />
-  A glossary of terms, both technical and whimsical
-</li>
+    It happens that I have a subdomain of one of my web domains bound to our home IP address, so that I can VPN into our home network, etc. Our wifi router (an Asus model) had its domain name set to the same (i.e., subdomain.thedomain.com). So, the home router (which also handles DNS caching) was spitting out DNS configurations that looked like this: search subdomain.thedomain.com nameserver 8.8.8.8 nameserver 192.168.12.254 Some of you who have experience with DNS and DHCP will probably start to guess what&rsquo;s going on here.
+    <footer>
+        <a href='http://localhost:1313/posts/dns_wildcard_weirdness.html'><nobr>Read more →</nobr></a>
+    </footer>
+</article>
 
             
-          </ul>
+          </div>
         </section>
+
     </div>
+  </div>
 
   <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 

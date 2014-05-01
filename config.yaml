@@ -6,4 +6,5 @@ indexes:
 category: "categories"
 baseurl: "http://ostensibly.me"
 title: "ostensibly.me"
+canonifyurls: false
 ---

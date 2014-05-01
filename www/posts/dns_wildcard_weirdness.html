@@ -6,8 +6,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> And so it begins... </title>
-    <link rel="canonical" href="http://ostensibly.me/posts/and_so_it_begins">
+    <title> DNS wildcard weirdness </title>
+    <link rel="canonical" href="http://localhost:1313/posts/dns_wildcard_weirdness.html">
     
 
 <link rel="stylesheet" href="/css/poole.css">
@@ -52,12 +52,61 @@
 
     
     <div class="container content">
-      <h1 class="post-title">And so it begins...</h1>
+      <h1 class="post-title">DNS wildcard weirdness</h1>
         <section id="main">
-          <h5 id="date"> Sun Mar 30, 2014 </h5>
-          <p>My name is Brendan Smithyman. I&rsquo;m a geophysicist working on seismic full-waveform inversion, but I have very broad interests. I am currently (as of March, 2014) a postdoctoral fellow at the <a href="https://www.slim.eos.ubc.ca/">Seismic Laboratory for Imaging and Modeling</a>, at <a href="http://www.ubc.ca/">UBC</a>. You can find some of my work <a href="https://github.com/bsmithyman">on GitHub</a>.</p>
+          <h5 id="date"> Mon Mar 31, 2014 </h5>
+          <p>It happens that I have a subdomain of one of my web domains bound to our home IP address, so that I can VPN into our home network, etc.</p>
 
-<p>I&rsquo;ve never been all that good about keeping a blog up to date, but the main impediment for most websites is lack of content. I&rsquo;m certainly not lacking for interests, and interests + time potentially leads to content. I think that this could be the beginning of a beautiful thing (or a lurching monstrosity that endangers life as we know it). Let&rsquo;s find out.</p>
+<p>Our wifi router (an Asus model) had its domain name set to the same (i.e., <code>subdomain.thedomain.com</code>). So, the home router (which also handles DNS caching) was spitting out DNS configurations that looked like this:</p>
+
+<pre><code>search subdomain.thedomain.com
+nameserver 8.8.8.8
+nameserver 192.168.12.254
+</code></pre>
+
+<p>Some of you who have experience with DNS and DHCP will probably start to guess what&rsquo;s going on here. I recently enabled DNS wildcards on the domain, in order to do some work with <a href="https://github.com/progrium/dokku">Dokku</a> (post on that forthcoming). This means that every subdomain under <code>*.thedomain.com</code> gets automatically directed to <code>198.51.100.82</code>. Cool. But when the DHCP server for our house is pushing out <code>resolv.conf</code> entries containing that search directive, everything gets a bit <s>pear shaped</s> interesting.</p>
+
+<p>In this circumstances, <em>any</em> non-existant hostname or subdomain requested from within my house resolves to <code>198.51.100.82</code>. <em>Any</em>.</p>
+
+<table>
+<thead>
+<tr>
+<td>Test Case</td>
+<td>Result</td>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>thedomain.com</code></td>
+<td><code>198.51.100.82</code></td>
+</tr>
+
+<tr>
+<td><code>nonexistant.thedomain.com</code></td>
+<td><code>198.51.100.82</code></td>
+</tr>
+
+<tr>
+<td><code>nonexistant.com</code></td>
+<td><code>198.51.100.82</code></td>
+</tr>
+
+<tr>
+<td><code>nonexistant.google.com</code></td>
+<td><code>198.51.100.82</code></td>
+</tr>
+
+<tr>
+<td><code>dramatichatsforpandas.com</code></td>
+<td><code>198.51.100.82</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>Removing the search domain worked. Didn&rsquo;t need it anyway.</p>
+
+<p><strong>Verdict</strong>: Good way to get a captive audience for my blog. <em>Weird</em> way to spend a Sunday afternoon.</p>
 
         </section>
 
@@ -67,10 +116,14 @@
 <div class="container">
   
     <span class="left">
-    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://ostensibly.me/info/glossary">Glossary</a>
+    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://localhost:1313/posts/consolidating_network_services.html">Consolidating personal network services with Dokku and Docker</a>
     </span>
   
 
+  
+    <span class="right">
+    <em>Next: </em><a class="next" href="http://localhost:1313/info/glossary.html"> &nbsp; Glossary</a> &raquo;
+    </span>
   
 </div>
 
@@ -81,9 +134,11 @@
   <ul class="catlist">
     <li><em>Categories: </em></li>
     
-      <li><a href="/categories/introduction">introduction</a> </li>
+      <li><a href="/categories/dns">DNS</a> </li>
     
-      <li><a href="/categories/blog">blog</a> </li>
+      <li><a href="/categories/cloudflare">CloudFlare</a> </li>
+    
+      <li><a href="/categories/dokku">Dokku</a> </li>
     
   </ul>
 </div>
