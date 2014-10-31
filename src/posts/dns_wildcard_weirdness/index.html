@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title> DNS wildcard weirdness </title>
-    <link rel="canonical" href="http://ostensibly.me/posts/dns_wildcard_weirdness">
+    <link rel="canonical" href="http://ostensibly.me/posts/dns_wildcard_weirdness/">
     
 
 <link rel="stylesheet" href="/css/poole.css">
@@ -64,15 +64,15 @@ nameserver 8.8.8.8
 nameserver 192.168.12.254
 </code></pre>
 
-<p>Some of you who have experience with DNS and DHCP will probably start to guess what&rsquo;s going on here. I recently enabled DNS wildcards on the domain, in order to do some work with <a href="https://github.com/progrium/dokku">Dokku</a> (post on that forthcoming). This means that every subdomain under <code>*.thedomain.com</code> gets automatically directed to <code>198.51.100.82</code>. Cool. But when the DHCP server for our house is pushing out <code>resolv.conf</code> entries containing that search directive, everything gets a bit <s>pear shaped</s> interesting.</p>
+<p>Some of you who have experience with DNS and DHCP will probably start to guess what&rsquo;s going on here. I recently enabled DNS wildcards on the domain, in order to do some work with <a href="https://github.com/progrium/dokku">Dokku</a> (post on that forthcoming). This means that every subdomain under <code>*.thedomain.com</code> gets automatically directed to <code>198.51.100.82</code>. Cool. But when the DHCP server for our house is pushing out <code>resolv.conf</code> entries containing that search directive, everything gets a bit <del>pear shaped</del> interesting.</p>
 
 <p>In this circumstances, <em>any</em> non-existant hostname or subdomain requested from within my house resolves to <code>198.51.100.82</code>. <em>Any</em>.</p>
 
 <table>
 <thead>
 <tr>
-<td>Test Case</td>
-<td>Result</td>
+<th>Test Case</th>
+<th>Result</th>
 </tr>
 </thead>
 
@@ -116,13 +116,13 @@ nameserver 192.168.12.254
 <div class="container">
   
     <span class="left">
-    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://ostensibly.me/posts/consolidating_network_services">Consolidating personal network services with Dokku and Docker</a>
+    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://ostensibly.me/posts/consolidating_network_services/">Consolidating personal network services with Dokku and Docker</a>
     </span>
   
 
   
     <span class="right">
-    <em>Next: </em><a class="next" href="http://ostensibly.me/info/glossary"> &nbsp; Glossary</a> &raquo;
+    <em>Next: </em><a class="next" href="http://ostensibly.me/posts/and_so_it_begins/"> &nbsp; And so it begins...</a> &raquo;
     </span>
   
 </div>

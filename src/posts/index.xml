@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Posts on ostensibly.me </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://ostensibly.me/posts/index.xml</link>
+    
+    
+    
+    <updated>Thu, 01 May 2014 00:00:00 UTC</updated>
+    
+    <item>
+      <title>First thoughts on the Chevron/SEG 2014 FWI benchmark dataset</title>
+      <link>http://ostensibly.me/posts/the_chevron_seg_2014_fwi_benchmark/</link>
+      <pubDate>Thu, 01 May 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/the_chevron_seg_2014_fwi_benchmark/</guid>
+      <description>
+
+&lt;p&gt;It&amp;rsquo;s May of 2014, and there&amp;rsquo;s a new synthetic dataset from &lt;a href=&#34;http://www.chevron.com/&#34;&gt;Chevron&lt;/a&gt; and the &lt;a href=&#34;http://www.seg.org/seg&#34;&gt;SEG&lt;/a&gt; (Society of Exploration Geophysicists). This is a new entry in a series of synthetic seismic datasets designed to test the efficacy of FWI (Full-Waveform Inversion), and other advanced imaging techniques in the exploration seismic realm. I&amp;rsquo;m not going to go into too much detail about the dataset here, although you can get the material &lt;a href=&#34;https://s3.amazonaws.com/open.source.geoscience/open_data/seg_workshop_fwi_2014/seg_workshop_fwi_2014.html&#34;&gt;directly from Chevron and the SEG&lt;/a&gt; if you&amp;rsquo;re interested in trying the challenge. I&amp;rsquo;ve also prepared an &lt;a href=&#34;https://github.com/bsmithyman/IPyNB-SEG2014FWIBenchmark&#34;&gt;introductory iPython notebook&lt;/a&gt; that can be modified and reworked (under its license), or &lt;a href=&#34;http://nbviewer.ipython.org/github/bsmithyman/IPyNB-SEG2014FWIBenchmark/blob/master/SEG%202014%20Chevron%20Initial.ipynb&#34;&gt;viewed online&lt;/a&gt;. Instead, I&amp;rsquo;m going to talk a bit about the reasons that this sort of dataset exists, and what can be learned.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_0&#34;&gt;[Seismic] Full-Waveform Inversion&lt;/h2&gt;
+
+&lt;p&gt;Full-Waveform Inversion (FWI) is a series of methods used in exploration seismology to construct earth models from observed seismic waveforms. The models are like images of the earth, and typically take the form of gridded velocities; density, bulk modulus, shear modulus, models of anisotropy and others are also important related parameters. &lt;a href=&#34;#Virieux:2009&#34;&gt;Virieux and Operto (2009)&lt;/a&gt; discuss some of the details of these methods, and &lt;a href=&#34;#Vigh:2008&#34;&gt;Vigh and Starr (2008)&lt;/a&gt; outline some of the specifics relating to the choice of technique. The various FWI methods try to construct models of the earth that match measurements, and these measurements take the form of waveforms recorded by geophones (which measure particle velocity), hydrophones (which measure pressure) or other more esoteric instruments. FWI is the business of &lt;em&gt;inverting&lt;/em&gt; the systems (matrices) of physical laws (partial differential equations) that relate the model (what we want) to the data (what we measure)&amp;mdash;in other words, the business of making a model of the earth from the waves we record.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;#Herrmann:2013&#34;&gt;Herrmann et al. (2013)&lt;/a&gt; and &lt;a href=&#34;#Smithyman:2014&#34;&gt;Smithyman et al. (2014)&lt;/a&gt; show results from some projects that I was recently involved in.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_1&#34;&gt;Motivation for synthetic (blind) tests&lt;/h2&gt;
+
+&lt;p&gt;In the real world, full-waveform inversion is increasingly being used to image the Earth. FWI is among the most advanced methods currently available, but it is also prone to systematic errors that are very difficult to detect. One reason for this is the concept of &lt;em&gt;nonuniqueness&lt;/em&gt;, i.e., the fact that the data we measure can be explained by more than one model. Only one of these models is representative of the true Earth, but usually we can&amp;rsquo;t tell which it is. We are also missing measurements, some of them are incorrect or conflicting, our simulations aren&amp;rsquo;t accurate enough and we have limited resources. So, in practice we do the best we can using procedures that are based on theory and experience. The problem: &amp;ldquo;How do we build that experience&amp;mdash;and catch problems&amp;mdash;if we don&amp;rsquo;t know what the true answer is?&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;Blind tests like the new benchmark dataset from Chevron allow us to test and compare different methods and methodologies. Different practitioners can try to recover good approximations to the true earth model, but in this case the true (synthetic) earth model is &lt;em&gt;known&lt;/em&gt;, which makes it possible to judge how different methods succeed and how they fall short. It&amp;rsquo;ll be interesting to see how the results turn out!&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_2&#34;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;&lt;a name=&#34;Herrmann:2013&#34;&gt;&lt;/a&gt;Herrmann, F. J., Hanlon, I, Kumar, R., van Leeuwen, T., Li, X., Smithyman, B., Wason, H., Calvert, A. J., Javanmehri, M. and Takougang, E. T. (2013), Frugal full-waveform inversion: From theory to a practical algorithm, The Leading Edge, 32(9), 1082–1092, doi:10.1190/tle32091082.1. &lt;a href=&#34;http://library.seg.org/doi/abs/10.1190/tle32091082.1&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;Smithyman:2014&#34;&gt;&lt;/a&gt;Smithyman, B. R., Clowes, R. M. and Bordet, E. (2014), New geophysical models for subsurface velocity structure in the Nechako–Chilcotin plateau from 2.5-D waveform tomography, Canadian Journal of Earth Sciences, 51, 373–392, doi:10.1139/cjes-2013-0152. &lt;a href=&#34;http://www.nrcresearchpress.com/doi/full/10.1139/cjes-2013-0152&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;Vigh:2008&#34;&gt;&lt;/a&gt;Vigh, D. and Starr, E. W. (2008), Comparisons for waveform inversion, time domain or frequency domain?, 2008 SEG Annual Meeting, pp. 1890–1894. &lt;a href=&#34;https://www.onepetro.org/conference-paper/SEG-2008-1890&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;Virieux:2009&#34;&gt;&lt;/a&gt;Virieux, J. and Operto, S. (2009), An overview of full-waveform inversion in exploration geophysics, Geophysics, 74(6), WCC1–WCC26, doi:10.&lt;sup&gt;1190&lt;/sup&gt;&amp;frasl;&lt;sub&gt;1&lt;/sub&gt;.3238367. &lt;a href=&#34;http://library.seg.org/doi/abs/10.1190/1.3238367&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Static sites on Dokku</title>
+      <link>http://ostensibly.me/posts/static_sites_on_dokku/</link>
+      <pubDate>Thu, 17 Apr 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/static_sites_on_dokku/</guid>
+      <description>
+
+&lt;p&gt;I wrote about &lt;a href=&#34;https://github.com/progrium/dokku&#34;&gt;Dokku&lt;/a&gt; in &lt;a href=&#34;/posts/consolidating_network_services/&#34;&gt;a previous post&lt;/a&gt;; I spent a bit of time explaining why I think it&amp;rsquo;s pretty much the greatest thing since sliced pizza. However, I ran into a minor issue recently when trying to set up a static site for this blog using &lt;a href=&#34;http://hugo.spf13.com/&#34;&gt;Hugo&lt;/a&gt;. Dokku doesn&amp;rsquo;t always play nicely with static sites. I think this is improving (and it looks like &lt;a href=&#34;https://flynn.io/&#34;&gt;Flynn&lt;/a&gt; is much fancier); my issues occurred with Dokku &lt;em&gt;v0.2.1&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In a world full of static site designers (e.g., &lt;a href=&#34;http://jekyllrb.com/&#34;&gt;Jekyll&lt;/a&gt;, &lt;a href=&#34;http://ringce.com/hyde&#34;&gt;Hyde&lt;/a&gt;), the need for a PaaS (Platform as a Service) to run my blog is arguable. However, since I&amp;rsquo;ve been using &lt;a href=&#34;https://www.docker.io/&#34;&gt;Docker&lt;/a&gt; and &lt;a href=&#34;https://github.com/progrium/dokku&#34;&gt;Dokku&lt;/a&gt; wherever possible because of the simple deployment and update options, I wanted to keep everything within that ecosystem. Since &lt;a href=&#34;http://hugo.spf13.com/&#34;&gt;Hugo&lt;/a&gt; basically just spits out a directory full of HTML and static files, it&amp;rsquo;s pretty straightforward to serve. There are some built-in options that use &lt;a href=&#34;https://devcenter.heroku.com/articles/buildpacks&#34;&gt;buildpacks&lt;/a&gt; to deploy &lt;a href=&#34;http://wiki.nginx.org/&#34;&gt;Nginx&lt;/a&gt; or &lt;a href=&#34;http://projects.apache.org/projects/http_server.html&#34;&gt;Apache&lt;/a&gt;. I tried both, and ran into the same issue with both; for now I&amp;rsquo;ll focus on the default Nginx buildpack.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_0&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;If you put a file in your git repository&amp;rsquo;s root directory named &lt;code&gt;.nginx&lt;/code&gt;, the default &lt;a href=&#34;https://github.com/rhy-jot/buildpack-nginx&#34;&gt;Nginx buildpack&lt;/a&gt; fires up and handles serving a site from &lt;code&gt;/app/www&lt;/code&gt;. This means that the document root is the &lt;code&gt;www&lt;/code&gt; directory of your git repository. Cool. I set up &lt;a href=&#34;http://hugo.spf13.com/&#34;&gt;Hugo&lt;/a&gt;&amp;rsquo;s &lt;code&gt;config.yaml&lt;/code&gt; file as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+contentdir: &amp;quot;content&amp;quot;
+layoutdir: &amp;quot;layouts&amp;quot;
+publishdir: &amp;quot;www&amp;quot;
+indexes:
+category: &amp;quot;categories&amp;quot;
+baseurl: &amp;quot;http://ostensibly.me&amp;quot;
+title: &amp;quot;ostensibly.me&amp;quot;
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;NB:&lt;/strong&gt; The whole site is stored in a &lt;a href=&#34;https://github.com/bsmithyman/ostensibly.me&#34;&gt;public repository on GitHub&lt;/a&gt; for your reading pleasure.&lt;/p&gt;
+
+&lt;p&gt;This worked great. I loaded up &lt;a href=&#34;http://ostensibly.me/&#34;&gt;ostensibly.me&lt;/a&gt; and was pleased to find that everything was &lt;em&gt;awesome&lt;/em&gt;. Until I clicked a link.&lt;/p&gt;
+
+&lt;p&gt;It turns out that, for reasons that are a bit complex, I got redirected to the wrong page. Instead of &lt;code&gt;http://ostensibly.me/info/about/&lt;/code&gt;, I ended up at &lt;code&gt;http://ostensibly.me:5000/info/about/&lt;/code&gt;. There&amp;rsquo;s no server running on port 5000; however, the Nginx server does use port 5000 at one point in the indirection when Nginx proxies the connections for Dokku.  So, I removed the &lt;code&gt;:5000&lt;/code&gt; bit from the link in my address bar, hit &lt;code&gt;Enter&lt;/code&gt;, and the next page loaded. Clicked a link. Port 5000, &lt;strong&gt;404&lt;/strong&gt;&amp;rsquo;d! [It bears pointing out that it wasn&amp;rsquo;t actually a &lt;code&gt;404&lt;/code&gt; error, since the site just didn&amp;rsquo;t respond at all. But it&amp;rsquo;s still a good idiom.]&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_1&#34;&gt;What happened?&lt;/h2&gt;
+
+&lt;p&gt;The links on &lt;a href=&#34;http://ostensibly.me/&#34;&gt;ostensibly.me&lt;/a&gt; point to things like &lt;code&gt;http://ostensibly.me/info/about&lt;/code&gt;, and when the pages load up the &lt;code&gt;/&lt;/code&gt; gets tacked on the end by Nginx. But, Nginx was rewriting the URLs to include port &lt;code&gt;5000&lt;/code&gt; when it did the rewrite. Since the requests were being rewritten, all the links were affected. However, going directly to &lt;code&gt;http://ostensibly.me/info/about/&lt;/code&gt; was fine, since no rewrite happened.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://serverfault.com/a/408024&#34;&gt;The Solution&lt;/a&gt; came from &lt;em&gt;Hariadi&lt;/em&gt; on &lt;a href=&#34;http://stackexchange.com/&#34;&gt;StackExchange&lt;/a&gt;, who suggested modifying the Nginx config to add a &lt;code&gt;proxy_redirect&lt;/code&gt; entry.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;proxy_redirect http://ostensibly.me:5000/ http://ostensibly.me/;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This change works fine, and solves an annoying problem. My impression from reading pull requests on GitHub is that &lt;a href=&#34;https://flynn.io/&#34;&gt;Flynn&lt;/a&gt; is going to solve all of the world&amp;rsquo;s problems, this among them. Until then, my site works.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Consolidating personal network services with Dokku and Docker</title>
+      <link>http://ostensibly.me/posts/consolidating_network_services/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/consolidating_network_services/</guid>
+      <description>
+
+&lt;p&gt;I run a number of network services for our household. These include &lt;a href=&#34;http://openvpn.net/&#34;&gt;VPN servers&lt;/a&gt;, handlers for web services like &lt;a href=&#34;https://www.twilio.com/&#34;&gt;Twilio&lt;/a&gt;, and a couple of websites. Most of these aren&amp;rsquo;t actually very interesting, but they need to work without a lot of fuss and without a huge investment of capital. File serving happens inside the house, but I found that I needed a number of independent services running outside in order to avoid network anarchy.&lt;/p&gt;
+
+&lt;p&gt;I ran a server on &lt;a href=&#34;http://aws.amazon.com/ec2/&#34;&gt;Amazon EC2&lt;/a&gt; for a couple of years and was relatively happy with it; however, the cost and complexity led me to look for other options. EC2 is designed to operate at huge scale, and it has a lot of complexity for someone interested in one or two sites. I speak the language, and have a lot of respect for the service, but it wasn&amp;rsquo;t a great fit for me.&lt;/p&gt;
+
+&lt;p&gt;Enter &lt;a href=&#34;https://www.heroku.com/&#34;&gt;Heroku&lt;/a&gt;, a stable, managed platform designed to simplify deployment of web services and dynamic sites. Heroku is a PaaS (Platform as a Service) that was designed originally for Ruby apps, but which now supports a variety of languages and frameworks. Their way of doing things is attractive for a number of reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each independent site/app is isolated in its own environment, with its own resources and dependencies.&lt;/li&gt;
+&lt;li&gt;Deployment is set up in a structured and modular way, using &lt;a href=&#34;http://git-scm.com/&#34;&gt;Git&lt;/a&gt;. Push your content to their site and it&amp;rsquo;s live, with recursive dependency fetching.&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s straightforward to add cloud-sourced backend services like databases, caching layers, analytics, etc. There&amp;rsquo;s a whole ecosystem, and billing is centralized.&lt;/li&gt;
+&lt;li&gt;There&amp;rsquo;s a very capable free tier that lets you host small projects with no investment (and the same applies for most of the standard add-on services).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The free tier is great; you can spin up an arbitrary number of web apps, each of which runs in its own 512 MB sandboxed environment. The free server apps (&amp;ldquo;dynos&amp;rdquo;, in Heroku&amp;rsquo;s parlance) do spin down after a few minutes of disuse, and require a bit of time to fire back up when the next request hits. Hard to argue with free.&lt;/p&gt;
+
+&lt;p&gt;The problem with Heroku&amp;mdash;if it can be called a problem&amp;mdash;is that it&amp;rsquo;s overkill for most personal projects. This makes a lot of sense if you&amp;rsquo;re running a company off of it; however, their pricing is a harder proposition if the consequence of downtime is &lt;em&gt;mild inconvenience&lt;/em&gt;, rather than &lt;em&gt;business apocalypse&lt;/em&gt;. It&amp;rsquo;s, like, $34.50/mo (USD) for the initial paid tier, as of March 2014. Speaking personally, that&amp;rsquo;s well above my web-app &lt;a href=&#34;/info/glossary/&#34;&gt;latte threshold&lt;/a&gt;, though you definitely get rock-solid performance for the money.&lt;/p&gt;
+
+&lt;p&gt;On a personal note, I have limited discretionary funds before I have to start justifying such critical tasks as: backing up data three times, running carrier grade VoIP services for our house, insisting on UPS battery backups, making lighting computer controllable, running gigabit &lt;em&gt;everywhere&lt;/em&gt;, etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_0&#34;&gt;That&amp;rsquo;ll do, Pig; that&amp;rsquo;ll do&lt;/h2&gt;
+
+&lt;p&gt;&amp;ldquo;There must be a better way!&amp;rdquo; you say. I think there is, and these things are developing quickly, so this may iterate a few times in the near future. Let&amp;rsquo;s introduce things recursively:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/progrium/dokku&#34;&gt;Dokku&lt;/a&gt; is a minimal open-source re-implementation of the Heroku &lt;a href=&#34;https://devcenter.heroku.com/articles/buildpacks&#34;&gt;Buildpack&lt;/a&gt;-based PaaS infrastructure (&amp;ldquo;the smallest PaaS implementation you&amp;rsquo;ve ever seen&amp;rdquo;), which runs on
+&lt;a href=&#34;https://www.docker.io/&#34;&gt;Docker&lt;/a&gt;, itself a set of services designed to make &lt;a href=&#34;https://linuxcontainers.org/&#34;&gt;LXC Containers&lt;/a&gt; usable. Docker is billed as &amp;ldquo;an open source project to pack, ship and run any application as a lightweight container&amp;rdquo;. Docker is useful because it simplifies deployment of bundles that encapsulate the dependencies and functionality of a whole application stack.&lt;/p&gt;
+
+&lt;p&gt;Dokku makes it straightforward to depoloy things in a Heroku-esque environment running on your own hardware. It&amp;rsquo;s a project by &lt;a href=&#34;https://twitter.com/progrium&#34;&gt;Jeff Lindsay&lt;/a&gt;, and you can find out a lot more on &lt;a href=&#34;http://progrium.com/blog/2013/06/19/dokku-the-smallest-paas-implementation-youve-ever-seen/&#34;&gt;his blog&lt;/a&gt;. In the long run, it&amp;rsquo;s looking like the successor, &lt;a href=&#34;https://flynn.io/&#34;&gt;Flynn&lt;/a&gt;, will turn out to be even cooler and more capable (but it&amp;rsquo;s still under development as I write this).&lt;/p&gt;
+
+&lt;p&gt;I run Dokku on &lt;a href=&#34;https://www.digitalocean.com/&#34;&gt;Digital Ocean&lt;/a&gt;, which works fantastically-well for about $5/mo. See tutorials &lt;a href=&#34;https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://www.andrewmunsell.com/blog/dokku-tutorial-digital-ocean&#34;&gt;here&lt;/a&gt;. Of course, it&amp;rsquo;s quite trivial to install on your own hardware too; just check out the instructions in the &lt;a href=&#34;https://github.com/progrium/dokku&#34;&gt;Dokku GitHub repository&lt;/a&gt;. Digital Ocean is also a great lightweight replacement for parts of &lt;a href=&#34;http://aws.amazon.com/&#34;&gt;Amazon Web Services&lt;/a&gt;, though certainly at a smaller scale.&lt;/p&gt;
+
+&lt;p&gt;For now, I&amp;rsquo;m going to avoid talking about setup in much detail. To create a new Dokku site, you just add a deployment target in the Git repository for your Buildpack/Procfile-enabled app:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git remote add dokku dokku@somekindasite.com:blog.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you push (&lt;code&gt;git push dokku master&lt;/code&gt;), a whole bunch of cool things happen. First off, the push is handled by Git per normal. On the server end, the &lt;code&gt;dokku&lt;/code&gt; user maintains a Git repository that receives the content. But, there&amp;rsquo;s a receive hook (handled by &lt;a href=&#34;https://github.com/progrium/gitreceive&#34;&gt;gitreceive&lt;/a&gt;) that checks to see if the target repository exists. If it &lt;em&gt;doesn&amp;rsquo;t&lt;/em&gt;, Dokku&amp;rsquo;s underlying framework springs into motion and sets up the repository; it also starts putting together a Docker/LXC container to hold the app. Then, whether it was a new app or not, Dokku syncs in the new content and handles the buildpack&amp;mdash;this means pulling any dependencies, setting up the app, and launching it as a service.&lt;/p&gt;
+
+&lt;p&gt;One really cool feature of Dokku: you can speecify the target domain in the Git remote address. In the example above, &lt;code&gt;blog&lt;/code&gt; will coerce to a subdomain of whatever wildcard domain is set up for Dokku. See below for some examples (it&amp;rsquo;s assumed that &lt;code&gt;somekindasite.com&lt;/code&gt; is specified as the default domain for the Dokku installation). This works for arbitrary bare domains as well.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Git Remote Entry&lt;/th&gt;
+&lt;th&gt;VirtualHost&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dokku@somekindasite.com:blog.git&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;blog.somekindasite.com&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dokku@somekindasite.com:www.git&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;www.somekindasite.com&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dokku@somekindasite.com:www.somekindasite.com.git&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;www.somekindasite.com&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dokku@somekindasite.com:somekindasite.com.git&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;somekindasite.com&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dokku@dramatichats.com.git&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;dramatichats.com&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Under the hood, this is making use of Docker containers with private networking. Dokku decides what ports to expose, and the connections for each app are reverse proxied using &lt;a href=&#34;http://wiki.nginx.org/&#34;&gt;Nginx&lt;/a&gt; Server Blocks (cf. VirtualHost entries) that are generated automatically.&lt;/p&gt;
+
+&lt;p&gt;So, you can run your entire workflow using Git, a couple of command-line scripts, and an easily-maintained &lt;a href=&#34;http://www.ubuntu.com/&#34;&gt;Ubuntu&lt;/a&gt; Server virtual machine. It may not work for everyone or everything, but it&amp;rsquo;s simplified my workflows substantially and made it easier to maintain services and sites in my spare time.&lt;/p&gt;
+
+&lt;p&gt;Hit me back if this is useful to you!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DNS wildcard weirdness</title>
+      <link>http://ostensibly.me/posts/dns_wildcard_weirdness/</link>
+      <pubDate>Mon, 31 Mar 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/dns_wildcard_weirdness/</guid>
+      <description>&lt;p&gt;It happens that I have a subdomain of one of my web domains bound to our home IP address, so that I can VPN into our home network, etc.&lt;/p&gt;
+
+&lt;p&gt;Our wifi router (an Asus model) had its domain name set to the same (i.e., &lt;code&gt;subdomain.thedomain.com&lt;/code&gt;). So, the home router (which also handles DNS caching) was spitting out DNS configurations that looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;search subdomain.thedomain.com
+nameserver 8.8.8.8
+nameserver 192.168.12.254
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some of you who have experience with DNS and DHCP will probably start to guess what&amp;rsquo;s going on here. I recently enabled DNS wildcards on the domain, in order to do some work with &lt;a href=&#34;https://github.com/progrium/dokku&#34;&gt;Dokku&lt;/a&gt; (post on that forthcoming). This means that every subdomain under &lt;code&gt;*.thedomain.com&lt;/code&gt; gets automatically directed to &lt;code&gt;198.51.100.82&lt;/code&gt;. Cool. But when the DHCP server for our house is pushing out &lt;code&gt;resolv.conf&lt;/code&gt; entries containing that search directive, everything gets a bit &lt;del&gt;pear shaped&lt;/del&gt; interesting.&lt;/p&gt;
+
+&lt;p&gt;In this circumstances, &lt;em&gt;any&lt;/em&gt; non-existant hostname or subdomain requested from within my house resolves to &lt;code&gt;198.51.100.82&lt;/code&gt;. &lt;em&gt;Any&lt;/em&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Test Case&lt;/th&gt;
+&lt;th&gt;Result&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;thedomain.com&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;198.51.100.82&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;nonexistant.thedomain.com&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;198.51.100.82&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;nonexistant.com&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;198.51.100.82&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;nonexistant.google.com&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;198.51.100.82&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dramatichatsforpandas.com&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;198.51.100.82&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Removing the search domain worked. Didn&amp;rsquo;t need it anyway.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Verdict&lt;/strong&gt;: Good way to get a captive audience for my blog. &lt;em&gt;Weird&lt;/em&gt; way to spend a Sunday afternoon.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>And so it begins...</title>
+      <link>http://ostensibly.me/posts/and_so_it_begins/</link>
+      <pubDate>Sun, 30 Mar 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/and_so_it_begins/</guid>
+      <description>&lt;p&gt;My name is Brendan Smithyman. I&amp;rsquo;m a geophysicist working on seismic full-waveform inversion, but I have very broad interests. I am currently (as of March, 2014) a postdoctoral fellow at the &lt;a href=&#34;https://www.slim.eos.ubc.ca/&#34;&gt;Seismic Laboratory for Imaging and Modeling&lt;/a&gt;, at &lt;a href=&#34;http://www.ubc.ca/&#34;&gt;UBC&lt;/a&gt;. You can find some of my work &lt;a href=&#34;https://github.com/bsmithyman&#34;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve never been all that good about keeping a blog up to date, but the main impediment for most websites is lack of content. I&amp;rsquo;m certainly not lacking for interests, and interests + time potentially leads to content. I think that this could be the beginning of a beautiful thing (or a lurching monstrosity that endangers life as we know it). Let&amp;rsquo;s find out.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title> Consolidating personal network services with Dokku and Docker </title>
-    <link rel="canonical" href="http://ostensibly.me/posts/consolidating_network_services">
+    <link rel="canonical" href="http://ostensibly.me/posts/consolidating_network_services/">
     
 
 <link rel="stylesheet" href="/css/poole.css">
@@ -89,7 +89,7 @@
 
 <p>For now, I&rsquo;m going to avoid talking about setup in much detail. To create a new Dokku site, you just add a deployment target in the Git repository for your Buildpack/Procfile-enabled app:</p>
 
-<pre><code class="bash">git remote add dokku dokku@somekindasite.com:blog.git
+<pre><code class="language-bash">git remote add dokku dokku@somekindasite.com:blog.git
 </code></pre>
 
 <p>When you push (<code>git push dokku master</code>), a whole bunch of cool things happen. First off, the push is handled by Git per normal. On the server end, the <code>dokku</code> user maintains a Git repository that receives the content. But, there&rsquo;s a receive hook (handled by <a href="https://github.com/progrium/gitreceive">gitreceive</a>) that checks to see if the target repository exists. If it <em>doesn&rsquo;t</em>, Dokku&rsquo;s underlying framework springs into motion and sets up the repository; it also starts putting together a Docker/LXC container to hold the app. Then, whether it was a new app or not, Dokku syncs in the new content and handles the buildpack&mdash;this means pulling any dependencies, setting up the app, and launching it as a service.</p>
@@ -99,8 +99,8 @@
 <table>
 <thead>
 <tr>
-<td>Git Remote Entry</td>
-<td>VirtualHost</td>
+<th>Git Remote Entry</th>
+<th>VirtualHost</th>
 </tr>
 </thead>
 
@@ -146,13 +146,13 @@
 <div class="container">
   
     <span class="left">
-    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://ostensibly.me/info/about">About Me</a>
+    &nbsp; <em>&laquo; Previous:</em> <a class="next" href="http://ostensibly.me/info/about/">About Me</a>
     </span>
   
 
   
     <span class="right">
-    <em>Next: </em><a class="next" href="http://ostensibly.me/posts/dns_wildcard_weirdness"> &nbsp; DNS wildcard weirdness</a> &raquo;
+    <em>Next: </em><a class="next" href="http://ostensibly.me/posts/dns_wildcard_weirdness/"> &nbsp; DNS wildcard weirdness</a> &raquo;
     </span>
   
 </div>
