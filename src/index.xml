@@ -7,7 +7,71 @@
     
     
     
-    <updated>Thu, 01 May 2014 00:00:00 UTC</updated>
+    <updated>Mon, 17 Nov 2014 00:00:00 UTC</updated>
+    
+    <item>
+      <title>IPython parallelism and remote objects</title>
+      <link>http://ostensibly.me/posts/ipython_parallelism_and_remote_objects/</link>
+      <pubDate>Mon, 17 Nov 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/ipython_parallelism_and_remote_objects/</guid>
+      <description>
+
+&lt;p&gt;IPython parallel workers are hard to write. Basically, these things are easy when you&amp;rsquo;re running a parallel map (calling the same function over multiple inputs) with a function handle defined in the notebook. When you try to set up persistent objects on the workers and then refer to them later, things get hairy. Why? &lt;em&gt;Successfully implementing persistent workers in IPython seems to be about 90% fussing with namespaces.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_0&#34;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Example: &lt;a href=&#34;https://github.com/bsmithyman/zephyr/blob/76a36f3e7bb8467a7374a1fd25ecfe132e0fa92e/zephyr/Frontend.py&#34;&gt;bsmithyman/zephyr:integration/Frontend.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been making some progress with the structure of parallel problems. There turn out to be a ton of namespace issues when you try to put persistent objects on workers. It&amp;rsquo;s doable, though. The main trick to getting persistent workers to function on remote nodes comes down to how Python namespaces work.&lt;/p&gt;
+
+&lt;p&gt;IPython has a decorator (IPython.parallel.interactive) that can make it as though a function was typed into the interactive console, from a namespacing point of view.&lt;/p&gt;
+
+&lt;p&gt;Adding the &lt;code&gt;@interactive&lt;/code&gt; decorator changes the scope of its argument such that if you were to define functions like so (in module &lt;code&gt;zephyr.Frontend&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def myFunction1():
+    return __name__
+
+@interactive
+def myFunction2():
+    return __name__
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and then call them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; print(myFunction1())
+zephyr.Frontend
+
+&amp;gt;&amp;gt;&amp;gt; print(myFunction2())
+__main__
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;you&amp;rsquo;d see that they have different scopes.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_1&#34;&gt;How is this useful?&lt;/h2&gt;
+
+&lt;p&gt;The importance comes when you&amp;rsquo;re trying to set up an object in that scope. For example, in the file above (&lt;em&gt;Frontend.py&lt;/em&gt;), the goal is to initialize a set of parallel worker objects that are instances of the class &lt;code&gt;Kernel.SeisFDFDKernel&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Normally, if a function were called to initialize them, they would lose scope as soon as a function returned. Hence, just calling &lt;code&gt;dview.map&lt;/code&gt; to construct them doesn&amp;rsquo;t work. You can&amp;rsquo;t call a class constructor directly with a parallel map (at least, not without some major issues).&lt;/p&gt;
+
+&lt;p&gt;The next obvious choice is to try to set things up as globals:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def setupCache(systemConfig):
+
+    global localSystem
+    global baseSystemConfig
+
+    localSystem = {}
+    baseSystemConfig = systemConfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It seems like this should work, except that if the &lt;code&gt;setupCache&lt;/code&gt; function is defined in the scope of the module (&lt;code&gt;zephyr.Frontend&lt;/code&gt;), then the calls to &lt;code&gt;global&lt;/code&gt; inside that function will be relative to that scope. Basically, the functions can&amp;rsquo;t break out of the module scope without disturbing degrees of poking around in private namespace constructs.&lt;/p&gt;
+
+&lt;p&gt;Adding the &lt;code&gt;@interactive&lt;/code&gt; decorator means that the functions in &lt;em&gt;Frontend.py&lt;/em&gt; can work in the namespace of the interpreter (i.e., within &lt;code&gt;__main__&lt;/code&gt;). This would probably not be the best idea in all cases, but it&amp;rsquo;s particularly useful on parallel workers. Calls to &lt;code&gt;dview.map&lt;/code&gt; can work on class methods. Objects on the same worker can share datastores. There&amp;rsquo;s a lot of good stuff that becomes possible.&lt;/p&gt;
+
+&lt;p&gt;Still lots of work to do, though.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>First thoughts on the Chevron/SEG 2014 FWI benchmark dataset</title>
@@ -270,18 +334,6 @@ nameserver 192.168.12.254
     </item>
     
     <item>
-      <title>And so it begins...</title>
-      <link>http://ostensibly.me/posts/and_so_it_begins/</link>
-      <pubDate>Sun, 30 Mar 2014 00:00:00 UTC</pubDate>
-      
-      <guid>http://ostensibly.me/posts/and_so_it_begins/</guid>
-      <description>&lt;p&gt;My name is Brendan Smithyman. I&amp;rsquo;m a geophysicist working on seismic full-waveform inversion, but I have very broad interests. I am currently (as of March, 2014) a postdoctoral fellow at the &lt;a href=&#34;https://www.slim.eos.ubc.ca/&#34;&gt;Seismic Laboratory for Imaging and Modeling&lt;/a&gt;, at &lt;a href=&#34;http://www.ubc.ca/&#34;&gt;UBC&lt;/a&gt;. You can find some of my work &lt;a href=&#34;https://github.com/bsmithyman&#34;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve never been all that good about keeping a blog up to date, but the main impediment for most websites is lack of content. I&amp;rsquo;m certainly not lacking for interests, and interests + time potentially leads to content. I think that this could be the beginning of a beautiful thing (or a lurching monstrosity that endangers life as we know it). Let&amp;rsquo;s find out.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Glossary</title>
       <link>http://ostensibly.me/info/glossary/</link>
       <pubDate>Sun, 30 Mar 2014 00:00:00 UTC</pubDate>
@@ -291,6 +343,18 @@ nameserver 192.168.12.254
   &lt;dt&gt;latte threshold&lt;/dt&gt;
   &lt;dd&gt;A singularity in the partial derivative of attention with respect to monetary cost. The point at which something is sufficiently expensive to be worth considering for more than a few seconds (leading to an involved cost-benefit analysis). Anecdotal evidence suggests that this varies in relation to the pricing of beverages at Starbucks.&lt;/dd&gt;
 &lt;/dl&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>And so it begins...</title>
+      <link>http://ostensibly.me/posts/and_so_it_begins/</link>
+      <pubDate>Sun, 30 Mar 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://ostensibly.me/posts/and_so_it_begins/</guid>
+      <description>&lt;p&gt;My name is Brendan Smithyman. I&amp;rsquo;m a geophysicist working on seismic full-waveform inversion, but I have very broad interests. I am currently (as of March, 2014) a postdoctoral fellow at the &lt;a href=&#34;https://www.slim.eos.ubc.ca/&#34;&gt;Seismic Laboratory for Imaging and Modeling&lt;/a&gt;, at &lt;a href=&#34;http://www.ubc.ca/&#34;&gt;UBC&lt;/a&gt;. You can find some of my work &lt;a href=&#34;https://github.com/bsmithyman&#34;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve never been all that good about keeping a blog up to date, but the main impediment for most websites is lack of content. I&amp;rsquo;m certainly not lacking for interests, and interests + time potentially leads to content. I think that this could be the beginning of a beautiful thing (or a lurching monstrosity that endangers life as we know it). Let&amp;rsquo;s find out.&lt;/p&gt;
 </description>
     </item>
     

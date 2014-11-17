@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://ostensibly.me/</loc>
-    <lastmod>2014-05-01T00:00:00+00:00</lastmod>
+    <lastmod>2014-11-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ostensibly.me/posts/ipython_parallelism_and_remote_objects/</loc>
+    <lastmod>2014-11-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -33,12 +38,12 @@
   </url>
   
   <url>
-    <loc>http://ostensibly.me/posts/and_so_it_begins/</loc>
+    <loc>http://ostensibly.me/info/glossary/</loc>
     <lastmod>2014-03-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ostensibly.me/info/glossary/</loc>
+    <loc>http://ostensibly.me/posts/and_so_it_begins/</loc>
     <lastmod>2014-03-30T00:00:00+00:00</lastmod>
   </url>
   
